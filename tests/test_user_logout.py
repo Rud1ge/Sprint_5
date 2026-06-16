@@ -13,23 +13,24 @@ from tests.locators import (
 )
 
 
-def test_user_logout(driver, existing_user_credentials):
-    email, password = existing_user_credentials
-    # Авторизоваться под заранее созданным пользователем.
-    driver.find_element(By.XPATH, BUTTON_LOGIN_REGISTRATION).click()
-    driver.find_element(By.XPATH, FIELD_EMAIL).send_keys(email)
-    driver.find_element(By.XPATH, FIELD_PASSWORD).send_keys(password)
-    driver.find_element(By.XPATH, BUTTON_LOGIN).click()
-    WebDriverWait(driver, 3).until(expected_conditions.visibility_of_element_located((By.XPATH, BUTTON_PROFILE)))
+class TestUserLogout:
+    def test_user_logout(self, driver, existing_user_credentials):
+        email, password = existing_user_credentials
+        # Авторизоваться под заранее созданным пользователем.
+        driver.find_element(By.XPATH, BUTTON_LOGIN_REGISTRATION).click()
+        driver.find_element(By.XPATH, FIELD_EMAIL).send_keys(email)
+        driver.find_element(By.XPATH, FIELD_PASSWORD).send_keys(password)
+        driver.find_element(By.XPATH, BUTTON_LOGIN).click()
+        WebDriverWait(driver, 3).until(expected_conditions.visibility_of_element_located((By.XPATH, BUTTON_PROFILE)))
 
-    # Нажать кнопку «Выйти».
-    driver.find_element(By.XPATH, BUTTON_PROFILE).click()
-    driver.find_element(By.XPATH, BUTTON_LOGOUT).click()
+        # Нажать кнопку «Выйти».
+        driver.find_element(By.XPATH, BUTTON_PROFILE).click()
+        driver.find_element(By.XPATH, BUTTON_LOGOUT).click()
 
-    # Проверить, что профиль скрыт, а кнопка «Вход и регистрация» снова отображается.
-    WebDriverWait(driver, 3).until(
-        expected_conditions.visibility_of_element_located((By.XPATH, BUTTON_LOGIN_REGISTRATION))
-    )
-    assert not driver.find_elements(By.XPATH, BUTTON_PROFILE)
-    assert not driver.find_elements(By.XPATH, USERNAME)
-    assert driver.find_element(By.XPATH, BUTTON_LOGIN_REGISTRATION)
+        # Проверить: профиль скрыт, а кнопка «Вход и регистрация» снова отображается.
+        WebDriverWait(driver, 3).until(
+            expected_conditions.visibility_of_element_located((By.XPATH, BUTTON_LOGIN_REGISTRATION))
+        )
+        assert len(driver.find_elements(By.XPATH, BUTTON_PROFILE)) == 0
+        assert len(driver.find_elements(By.XPATH, USERNAME)) == 0
+        assert driver.find_element(By.XPATH, BUTTON_LOGIN_REGISTRATION).is_displayed() is True

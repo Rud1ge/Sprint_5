@@ -1,7 +1,13 @@
 # Регистрация пользователя
-BUTTON_LOGIN_REGISTRATION = "/html/body/div/div/div[1]/div/button"
-BUTTON_NO_ACCOUNT = "/html/body/div/div/div[2]/div[5]/form/div[3]/button[2]"
-BUTTON_CREATE_ACCOUNT = "/html/body/div/div/div[2]/div[5]/form/div[3]/button[1]"
-BUTTON_PROFILE = "/html/body/div/div/div[1]/div/div[1]/button"
-FIELD_EMAIL = "/html/body/div/div/div[2]/div[5]/form/div[2]/div[1]/div/div/input"
-USERNAME = "/html/body/div/div/div[1]/div/div[1]/div/h3"
+BUTTON_LOGIN_REGISTRATION = "//button[contains(text(), 'Вход и регистрация')]"
+BUTTON_NO_ACCOUNT = "//button[contains(text(), 'Нет аккаунта')]"
+BUTTON_CREATE_ACCOUNT = "//button[@type='submit' and contains(text(), 'Создать аккаунт')]"
+BUTTON_PROFILE = "//button[contains(@class, 'circleSmall')]"
+FIELD_EMAIL = "//input[@name='email']"
+USERNAME = "//h3[contains(@class, 'profileText')]"
+
+# Валидация email в форме регистрации
+FIELD_ERROR_EMAIL = "//input[@name='email']/parent::div[contains(@class,'input_inputError')]"
+FIELD_ERROR_PASSWORD = "//input[@name='password']/parent::div[contains(@class,'input_inputError')]"
+FIELD_ERROR_REPEAT_PASSWORD = "//input[@name='submitPassword']/parent::div[contains(@class,'input_inputError')]"
+TEXT_ERROR = "//span[contains(text(),'Ошибка')]"

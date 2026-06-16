@@ -18,7 +18,6 @@ from tests.locators import (
 
 def test_user_registration_existing_user(driver, existing_user_credentials):
     existing_email, existing_password = existing_user_credentials
-
     # Нажать кнопку «Вход и регистрация»
     driver.find_element(By.XPATH, BUTTON_LOGIN_REGISTRATION).click()
     # Нажать кнопку «Нет аккаунта»

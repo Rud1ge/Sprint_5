@@ -17,10 +17,8 @@ from tests.locators import (
 def test_user_registration(driver):
     # Нажать кнопку «Вход и регистрация»
     driver.find_element(By.XPATH, BUTTON_LOGIN_REGISTRATION).click()
-
     # Нажать кнопку «Нет аккаунта»
     driver.find_element(By.XPATH, BUTTON_NO_ACCOUNT).click()
-
     # Заполнить поле Email формы регистрации и нажать кнопку «Создать аккаунт»
     driver.find_element(By.XPATH, FIELD_EMAIL).send_keys(f"test_user{uuid4()}@ya.ru")
     driver.find_element(By.XPATH, BUTTON_CREATE_ACCOUNT).click()

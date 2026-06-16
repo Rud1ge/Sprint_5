@@ -1,6 +1,10 @@
 from uuid import uuid4
 
-from locators import (
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions
+from selenium.webdriver.support.wait import WebDriverWait
+
+from tests.locators import (
     BUTTON_CREATE_ACCOUNT,
     BUTTON_LOGIN_REGISTRATION,
     BUTTON_NO_ACCOUNT,
@@ -8,9 +12,6 @@ from locators import (
     FIELD_EMAIL,
     USERNAME,
 )
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions
-from selenium.webdriver.support.wait import WebDriverWait
 
 
 def test_user_registration(driver):

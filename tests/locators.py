@@ -2,6 +2,7 @@
 BUTTON_LOGIN_REGISTRATION = "//button[contains(text(), 'Вход и регистрация')]"
 BUTTON_NO_ACCOUNT = "//button[contains(text(), 'Нет аккаунта')]"
 BUTTON_CREATE_ACCOUNT = "//button[@type='submit' and contains(text(), 'Создать аккаунт')]"
+BUTTON_LOGIN = "//button[@type='submit' and contains(text(), 'Войти')]"
 BUTTON_PROFILE = "//button[contains(@class, 'circleSmall')]"
 FIELD_EMAIL = "//input[@name='email']"
 FIELD_PASSWORD = "//input[@name='password']"

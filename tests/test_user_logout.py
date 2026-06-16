@@ -15,7 +15,6 @@ from tests.locators import (
 
 def test_user_logout(driver, existing_user_credentials):
     email, password = existing_user_credentials
-
     # Авторизоваться под заранее созданным пользователем.
     driver.find_element(By.XPATH, BUTTON_LOGIN_REGISTRATION).click()
     driver.find_element(By.XPATH, FIELD_EMAIL).send_keys(email)

@@ -25,9 +25,7 @@ def test_user_registration(driver):
     driver.find_element(By.XPATH, BUTTON_CREATE_ACCOUNT).click()
 
     # Проверить: произошёл переход на главную страницу, в правом верхнем углу около кнопки «Разместить объявление» отображается аватар пользователя и имя User.
-    WebDriverWait(driver, 3).until(
-        expected_conditions.visibility_of_element_located((By.XPATH, BUTTON_PROFILE))
-    )
+    WebDriverWait(driver, 3).until(expected_conditions.visibility_of_element_located((By.XPATH, BUTTON_PROFILE)))
     assert driver.current_url == "https://qa-desk.education-services.ru/regiatration"
     assert driver.find_element(By.XPATH, BUTTON_PROFILE)
     assert driver.find_element(By.XPATH, USERNAME).text == "User."

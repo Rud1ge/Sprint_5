@@ -1,0 +1,33 @@
+# Регистрация и авторизация пользователя
+BUTTON_LOGIN_REGISTRATION = ".//button[text()='Вход и регистрация']"
+BUTTON_NO_ACCOUNT = ".//button[text()='Нет аккаунта']"
+BUTTON_CREATE_ACCOUNT = ".//button[@type='submit' and text()='Создать аккаунт']"
+BUTTON_LOGIN = ".//button[@type='submit' and text()='Войти']"
+BUTTON_LOGOUT = ".//button[text()='Выйти']"
+BUTTON_CREATE_AD = ".//button[text()='Разместить объявление']"
+BUTTON_PROFILE = ".//button[contains(@class, 'circleSmall')]"
+FIELD_EMAIL = ".//input[@name='email']"
+FIELD_PASSWORD = ".//input[@name='password']"
+FIELD_REPEAT_PASSWORD = ".//input[@name='submitPassword']"
+USERNAME = ".//h3[contains(@class, 'profileText')]"
+
+# Валидация формы регистрации
+FIELD_ERROR_EMAIL = ".//div[contains(@class,'input_inputError') and .//input[@name='email']]"
+FIELD_ERROR_PASSWORD = ".//div[contains(@class,'input_inputError') and .//input[@name='password']]"
+FIELD_ERROR_REPEAT_PASSWORD = ".//div[contains(@class,'input_inputError') and .//input[@name='submitPassword']]"
+TEXT_ERROR = ".//span[contains(text(),'Ошибка')]"
+MODAL_AUTH_REQUIRED_TITLE = ".//h1[text()='Чтобы разместить объявление, авторизуйтесь']"
+
+# Создание объявления
+FIELD_AD_NAME = ".//input[@name='name']"
+FIELD_AD_DESCRIPTION = ".//textarea[@name='description']"
+FIELD_AD_PRICE = ".//input[@name='price']"
+BUTTON_CATEGORY_DROPDOWN = ".//div[.//input[@name='category']]//button[contains(@class,'dropDownMenu_arrowDown')]"
+BUTTON_CITY_DROPDOWN = ".//div[.//input[@name='city']]//button[contains(@class,'dropDownMenu_arrowDown')]"
+OPTION_CATEGORY_BOOKS = ".//button[contains(@class,'dropDownMenu_btn') and .//span[text()='Книги']]"
+OPTION_CITY_SPB = ".//button[contains(@class,'dropDownMenu_btn') and .//span[text()='Санкт-Петербург']]"
+RADIO_CONDITION_USED_LABEL = ".//label[text()='Б/У']"
+BUTTON_PUBLISH_AD = ".//button[@type='submit' and text()='Опубликовать']"
+BLOCK_MY_ADS = ".//*[contains(text(),'Мои объявления')]"
+MY_AD_BY_TITLE = ".//*[contains(text(),'{title}')]"
+FORM_CREATE_AD = ".//form[.//input[@name='name'] and .//textarea[@name='description']]"

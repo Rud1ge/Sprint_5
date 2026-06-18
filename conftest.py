@@ -15,6 +15,7 @@ from tests.locators import (
     FIELD_PASSWORD,
     FIELD_REPEAT_PASSWORD,
 )
+from tests.urls import BASE_URL
 
 
 @pytest.fixture
@@ -22,7 +23,7 @@ def driver():
     service = webdriver.ChromeService()
     driver = webdriver.Chrome(service=service)
     try:
-        driver.get("https://qa-desk.education-services.ru/")
+        driver.get(BASE_URL)
         yield driver
     finally:
         driver.quit()
@@ -34,7 +35,7 @@ def existing_user_credentials():
     password = "Qwerty123!"
     setup_driver = webdriver.Chrome(service=webdriver.ChromeService(log_output=subprocess.DEVNULL))
     try:
-        setup_driver.get("https://qa-desk.education-services.ru/")
+        setup_driver.get(BASE_URL)
         setup_driver.find_element(By.XPATH, BUTTON_LOGIN_REGISTRATION).click()
         WebDriverWait(setup_driver, 3).until(
             expected_conditions.element_to_be_clickable((By.XPATH, BUTTON_NO_ACCOUNT))

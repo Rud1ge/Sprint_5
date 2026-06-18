@@ -25,6 +25,7 @@ from tests.locators import (
     OPTION_CITY_SPB,
     RADIO_CONDITION_USED_LABEL,
 )
+from tests.urls import PROFILE_PAGE
 
 
 class TestCreateAd:
@@ -79,7 +80,7 @@ class TestCreateAd:
         WebDriverWait(driver, 3).until(expected_conditions.visibility_of_element_located((By.XPATH, BUTTON_PROFILE)))
 
         # Перейти в профиль пользователя.
-        driver.get("https://qa-desk.education-services.ru/profile")
+        driver.get(PROFILE_PAGE)
 
         # Проверить: в блоке «Мои объявления» отображается созданное объявление.
         WebDriverWait(driver, 3).until(expected_conditions.visibility_of_element_located((By.XPATH, BLOCK_MY_ADS)))

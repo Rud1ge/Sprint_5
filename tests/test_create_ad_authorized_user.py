@@ -19,6 +19,7 @@ from tests.locators import (
     FIELD_EMAIL,
     FIELD_PASSWORD,
     FORM_CREATE_AD,
+    MY_AD_BY_TITLE,
     OPTION_CATEGORY_BOOKS,
     OPTION_CITY_SPB,
     RADIO_CONDITION_USED_LABEL,
@@ -72,6 +73,6 @@ class TestCreateAdAuthorizedUser:
         # Проверить: в блоке «Мои объявления» отображается созданное объявление.
         WebDriverWait(driver, 3).until(expected_conditions.visibility_of_element_located((By.XPATH, BLOCK_MY_ADS)))
         created_ad = WebDriverWait(driver, 3).until(
-            expected_conditions.visibility_of_element_located((By.XPATH, f"//*[contains(text(),'{ad_title}')]"))
+            expected_conditions.visibility_of_element_located((By.XPATH, MY_AD_BY_TITLE.format(title=ad_title)))
         )
         assert created_ad.text == ad_title

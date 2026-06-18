@@ -29,4 +29,5 @@ OPTION_CITY_SPB = ".//button[contains(@class,'dropDownMenu_btn') and .//span[tex
 RADIO_CONDITION_USED_LABEL = ".//label[text()='Б/У']"
 BUTTON_PUBLISH_AD = ".//button[@type='submit' and text()='Опубликовать']"
 BLOCK_MY_ADS = ".//*[contains(text(),'Мои объявления')]"
+MY_AD_BY_TITLE = ".//*[contains(text(),'{title}')]"
 FORM_CREATE_AD = ".//form[.//input[@name='name'] and .//textarea[@name='description']]"

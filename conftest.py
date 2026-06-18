@@ -22,11 +22,9 @@ from tests.urls import BASE_URL
 def driver():
     service = webdriver.ChromeService()
     driver = webdriver.Chrome(service=service)
-    try:
-        driver.get(BASE_URL)
-        yield driver
-    finally:
-        driver.quit()
+    driver.get(BASE_URL)
+    yield driver
+    driver.quit()
 
 
 @pytest.fixture

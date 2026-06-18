@@ -7,6 +7,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 
+from tests.data import EXISTING_USER_EMAIL, TEST_PASSWORD
 from tests.locators import (
     BUTTON_CREATE_ACCOUNT,
     BUTTON_LOGIN_REGISTRATION,
@@ -29,8 +30,8 @@ def driver():
 
 @pytest.fixture
 def existing_user_credentials():
-    email = f"existing_user_{uuid4()}@ya.ru"
-    password = "Qwerty123!"
+    email = EXISTING_USER_EMAIL.format(uuid=uuid4())
+    password = TEST_PASSWORD
     setup_driver = webdriver.Chrome(service=webdriver.ChromeService(log_output=subprocess.DEVNULL))
     try:
         setup_driver.get(BASE_URL)

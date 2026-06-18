@@ -4,6 +4,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 
+from tests.data import TEST_PASSWORD, TEST_USER_EMAIL, USERNAME_TEXT, VALIDATION_ERROR
 from tests.locators import (
     BUTTON_CREATE_ACCOUNT,
     BUTTON_LOGIN_REGISTRATION,
@@ -30,15 +31,15 @@ class TestUserRegistration:
         ).click()
         WebDriverWait(driver, 3).until(expected_conditions.visibility_of_element_located((By.XPATH, FIELD_EMAIL)))
         # Заполнить все поля формы регистрации и нажать кнопку «Создать аккаунт».
-        password = "Qwerty123!"
-        driver.find_element(By.XPATH, FIELD_EMAIL).send_keys(f"test_user{uuid4()}@ya.ru")
+        password = TEST_PASSWORD
+        driver.find_element(By.XPATH, FIELD_EMAIL).send_keys(TEST_USER_EMAIL.format(uuid=uuid4()))
         driver.find_element(By.XPATH, FIELD_PASSWORD).send_keys(password)
         driver.find_element(By.XPATH, FIELD_REPEAT_PASSWORD).send_keys(password)
         driver.find_element(By.XPATH, BUTTON_CREATE_ACCOUNT).click()
 
         # Проверить: переход выполнен, в правом верхнем углу отображаются аватар и имя User.
         WebDriverWait(driver, 3).until(expected_conditions.visibility_of_element_located((By.XPATH, BUTTON_PROFILE)))
-        assert driver.find_element(By.XPATH, USERNAME).text == "User."
+        assert driver.find_element(By.XPATH, USERNAME).text == USERNAME_TEXT
         assert driver.find_element(By.XPATH, BUTTON_PROFILE).is_displayed() is True
 
     def test_user_registration_not_by_mask(self, driver):
@@ -57,7 +58,7 @@ class TestUserRegistration:
         WebDriverWait(driver, 3).until(expected_conditions.visibility_of_element_located((By.XPATH, FIELD_ERROR_EMAIL)))
         assert driver.find_element(By.XPATH, FIELD_ERROR_PASSWORD).is_displayed() is True
         assert driver.find_element(By.XPATH, FIELD_ERROR_REPEAT_PASSWORD).is_displayed() is True
-        assert driver.find_element(By.XPATH, TEXT_ERROR).text == "Ошибка"
+        assert driver.find_element(By.XPATH, TEXT_ERROR).text == VALIDATION_ERROR
 
     def test_user_registration_existing_user(self, driver, existing_user_credentials):
         existing_email, existing_password = existing_user_credentials
@@ -78,4 +79,4 @@ class TestUserRegistration:
         WebDriverWait(driver, 3).until(expected_conditions.visibility_of_element_located((By.XPATH, FIELD_ERROR_EMAIL)))
         assert driver.find_element(By.XPATH, FIELD_ERROR_PASSWORD).is_displayed() is True
         assert driver.find_element(By.XPATH, FIELD_ERROR_REPEAT_PASSWORD).is_displayed() is True
-        assert driver.find_element(By.XPATH, TEXT_ERROR).text == "Ошибка"
+        assert driver.find_element(By.XPATH, TEXT_ERROR).text == VALIDATION_ERROR

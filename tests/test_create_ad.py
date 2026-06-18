@@ -4,6 +4,12 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 
+from tests.data import (
+    AD_DESCRIPTION,
+    AD_PRICE,
+    AD_TITLE,
+    MODAL_AUTH_REQUIRED_TEXT,
+)
 from tests.locators import (
     BLOCK_MY_ADS,
     BUTTON_CATEGORY_DROPDOWN,
@@ -37,11 +43,11 @@ class TestCreateAd:
         modal_title = WebDriverWait(driver, 3).until(
             expected_conditions.visibility_of_element_located((By.XPATH, MODAL_AUTH_REQUIRED_TITLE))
         )
-        assert modal_title.text == "Чтобы разместить объявление, авторизуйтесь"
+        assert modal_title.text == MODAL_AUTH_REQUIRED_TEXT
 
     def test_create_ad_authorized_user(self, driver, existing_user_credentials):
         email, password = existing_user_credentials
-        ad_title = f"Тестовое объявление {uuid4()}"
+        ad_title = AD_TITLE.format(uuid=uuid4())
 
         # Авторизоваться под заранее созданным пользователем.
         driver.find_element(By.XPATH, BUTTON_LOGIN_REGISTRATION).click()
@@ -57,8 +63,8 @@ class TestCreateAd:
 
         # Заполнить «Название», «Описание товара», «Стоимость» (числовой формат).
         form.find_element(By.XPATH, FIELD_AD_NAME).send_keys(ad_title)
-        form.find_element(By.XPATH, FIELD_AD_DESCRIPTION).send_keys("Описание тестового товара для проверки автотеста.")
-        form.find_element(By.XPATH, FIELD_AD_PRICE).send_keys("12345")
+        form.find_element(By.XPATH, FIELD_AD_DESCRIPTION).send_keys(AD_DESCRIPTION)
+        form.find_element(By.XPATH, FIELD_AD_PRICE).send_keys(AD_PRICE)
 
         # Выбрать «Категорию» и «Город» из Dropdown.
         form.find_element(By.XPATH, BUTTON_CATEGORY_DROPDOWN).click()

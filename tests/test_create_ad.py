@@ -19,6 +19,7 @@ from tests.locators import (
     FIELD_EMAIL,
     FIELD_PASSWORD,
     FORM_CREATE_AD,
+    MODAL_AUTH_REQUIRED_TITLE,
     MY_AD_BY_TITLE,
     OPTION_CATEGORY_BOOKS,
     OPTION_CITY_SPB,
@@ -26,7 +27,17 @@ from tests.locators import (
 )
 
 
-class TestCreateAdAuthorizedUser:
+class TestCreateAd:
+    def test_create_ad_unauthorized_user(self, driver):
+        # Нажать кнопку «Разместить объявление».
+        driver.find_element(By.XPATH, BUTTON_CREATE_AD).click()
+
+        # Проверить: отображается модальное окно с заголовком «Чтобы разместить объявление, авторизуйтесь».
+        modal_title = WebDriverWait(driver, 3).until(
+            expected_conditions.visibility_of_element_located((By.XPATH, MODAL_AUTH_REQUIRED_TITLE))
+        )
+        assert modal_title.text == "Чтобы разместить объявление, авторизуйтесь"
+
     def test_create_ad_authorized_user(self, driver, existing_user_credentials):
         email, password = existing_user_credentials
         ad_title = f"Тестовое объявление {uuid4()}"

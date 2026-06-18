@@ -1,4 +1,3 @@
-import subprocess
 from uuid import uuid4
 
 import pytest
@@ -11,7 +10,9 @@ from tests.data import EXISTING_USER_EMAIL, TEST_PASSWORD
 from tests.locators import (
     BUTTON_CREATE_ACCOUNT,
     BUTTON_LOGIN_REGISTRATION,
+    BUTTON_LOGOUT,
     BUTTON_NO_ACCOUNT,
+    BUTTON_PROFILE,
     FIELD_EMAIL,
     FIELD_PASSWORD,
     FIELD_REPEAT_PASSWORD,
@@ -29,23 +30,22 @@ def driver():
 
 
 @pytest.fixture
-def existing_user_credentials():
+def existing_user_credentials(driver):
     email = EXISTING_USER_EMAIL.format(uuid=uuid4())
     password = TEST_PASSWORD
-    setup_driver = webdriver.Chrome(service=webdriver.ChromeService(log_output=subprocess.DEVNULL))
-    try:
-        setup_driver.get(BASE_URL)
-        setup_driver.find_element(By.XPATH, BUTTON_LOGIN_REGISTRATION).click()
-        WebDriverWait(setup_driver, 3).until(
-            expected_conditions.element_to_be_clickable((By.XPATH, BUTTON_NO_ACCOUNT))
-        ).click()
-        WebDriverWait(setup_driver, 3).until(expected_conditions.visibility_of_element_located((By.XPATH, FIELD_EMAIL)))
-        setup_driver.find_element(By.XPATH, FIELD_EMAIL).send_keys(email)
-        setup_driver.find_element(By.XPATH, FIELD_PASSWORD).send_keys(password)
-        setup_driver.find_element(By.XPATH, FIELD_REPEAT_PASSWORD).send_keys(password)
-        setup_driver.find_element(By.XPATH, BUTTON_CREATE_ACCOUNT).click()
-        WebDriverWait(setup_driver, 3).until(expected_conditions.url_contains("regiatration"))
-    finally:
-        setup_driver.quit()
-
+    driver.find_element(By.XPATH, BUTTON_LOGIN_REGISTRATION).click()
+    WebDriverWait(driver, 3).until(expected_conditions.element_to_be_clickable((By.XPATH, BUTTON_NO_ACCOUNT))).click()
+    WebDriverWait(driver, 3).until(expected_conditions.visibility_of_element_located((By.XPATH, FIELD_EMAIL)))
+    driver.find_element(By.XPATH, FIELD_EMAIL).send_keys(email)
+    driver.find_element(By.XPATH, FIELD_PASSWORD).send_keys(password)
+    driver.find_element(By.XPATH, FIELD_REPEAT_PASSWORD).send_keys(password)
+    driver.find_element(By.XPATH, BUTTON_CREATE_ACCOUNT).click()
+    WebDriverWait(driver, 3).until(expected_conditions.url_contains("regiatration"))
+    driver.get(BASE_URL)
+    if driver.find_elements(By.XPATH, BUTTON_PROFILE):
+        driver.find_element(By.XPATH, BUTTON_PROFILE).click()
+        driver.find_element(By.XPATH, BUTTON_LOGOUT).click()
+        WebDriverWait(driver, 3).until(
+            expected_conditions.visibility_of_element_located((By.XPATH, BUTTON_LOGIN_REGISTRATION))
+        )
     return email, password

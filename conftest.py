@@ -36,7 +36,10 @@ def existing_user_credentials():
     try:
         setup_driver.get("https://qa-desk.education-services.ru/")
         setup_driver.find_element(By.XPATH, BUTTON_LOGIN_REGISTRATION).click()
-        setup_driver.find_element(By.XPATH, BUTTON_NO_ACCOUNT).click()
+        WebDriverWait(setup_driver, 3).until(
+            expected_conditions.element_to_be_clickable((By.XPATH, BUTTON_NO_ACCOUNT))
+        ).click()
+        WebDriverWait(setup_driver, 3).until(expected_conditions.visibility_of_element_located((By.XPATH, FIELD_EMAIL)))
         setup_driver.find_element(By.XPATH, FIELD_EMAIL).send_keys(email)
         setup_driver.find_element(By.XPATH, FIELD_PASSWORD).send_keys(password)
         setup_driver.find_element(By.XPATH, FIELD_REPEAT_PASSWORD).send_keys(password)
